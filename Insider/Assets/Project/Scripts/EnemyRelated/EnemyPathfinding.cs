@@ -44,13 +44,13 @@ public class EnemyPathfinding : MonoBehaviour
     {
         if (collision.transform == currentTarget) {
             currentTargetNum++;
-            if (currentTargetNum == pathList.Length)
+            if (currentTargetNum != pathList.Length)
             {
-                currentTarget = finaltarget;
+                currentTarget = pathList[currentTargetNum];
             }
             else
             {
-                currentTarget = pathList[currentTargetNum];
+                currentTarget = finaltarget;
             }
 
         }
