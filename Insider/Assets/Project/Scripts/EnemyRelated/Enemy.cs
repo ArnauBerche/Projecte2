@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public float dmg;
     public int economyGiven;
 
-    public void SetEnemyData(EnemyManager.EnemyStats enemy)
+    public void SetEnemyData(EnemyStats enemy)
     {
         this.enemyName = enemy.enemyName;
         this.movSpeed = enemy.movSpeed;

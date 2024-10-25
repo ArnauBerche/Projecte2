@@ -4,117 +4,6 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public class Spawner
-    {
-        public Transform SP;
-        public virtual void Spawn(GameObject prefab, Spawner spawner){}
-        public void SetSP(Transform SpawnPointer)
-        {
-            SP = SpawnPointer;
-        }
-        public Transform GetRandomChild()
-        {
-            List<Transform> childs = new List<Transform>();
-            foreach (Transform child in SP)
-            {
-                childs.Add(child);
-            }
-            int randomIndex = Random.Range(0, childs.Count);
-            return childs[randomIndex];
-        }
-    }
-
-    public abstract class EnemyStats : Spawner
-    {
-        //public int positionInArray;
-        public string enemyName;
-        public float movSpeed;
-        public float health;
-        public float dmg;
-        public int economyGiven;
-        public GameObject enemyObj;
-
-
-        public abstract void SetEnemy();
-        public override void Spawn(GameObject prefab, Spawner spawner)
-        {
-            enemyObj = prefab;
-            Transform childcoords = spawner.GetRandomChild();
-            enemyObj = Instantiate(enemyObj, childcoords.position, Quaternion.identity);
-            enemyObj.GetComponent<Enemy>().SetEnemyData(this);
-        }
-
-    }
-
-    class Normal : EnemyStats
-    {
-        public override void SetEnemy()
-        {
-            enemyName = "IgA";
-            movSpeed = 1.0f;
-            health = 100.0f;
-            dmg = 10.0f;
-            economyGiven = 10;
-        }
-    }
-    
-    class Rock : EnemyStats
-    {
-        public override void SetEnemy()
-        {
-            enemyName = "IgD";
-            movSpeed = 1.25f;
-            health = 150.0f;
-            dmg = 10.0f;
-            economyGiven = 20;
-        }
-    }
-    
-    class Speedy : EnemyStats
-    {
-        public override void SetEnemy()
-        {
-            enemyName = "IgE";
-            movSpeed = 1.5f;
-            health = 125.0f;
-            dmg = 10.0f;
-            economyGiven = 20;
-        }
-    }
-    
-    class Splitter : EnemyStats
-    {
-        public override void SetEnemy()
-        {
-            enemyName = "IgG";
-            movSpeed = 1.0f;
-            health = 150.0f;
-            dmg = 10.0f;
-            economyGiven = 10;
-        }
-
-        public void Split()
-        {
-
-        }
-    }
-    
-    class Tank : EnemyStats
-    {
-        public override void SetEnemy()
-        {
-            enemyName = "IgM";
-            movSpeed = 0.5f;
-            health = 500.0f;
-            dmg = 10.0f;
-            economyGiven = 60;
-        }
-    }
-
-
-
-
-
     //Get from LevelManager
     public string order;
 
@@ -127,14 +16,13 @@ public class EnemyManager : MonoBehaviour
     public int amountToSpawn = 0;
     public List<EnemyStats> allEnemys;
 
-    public Spawner sp;
+    private Spawner sp;
     public GameObject enemyPrefab;
 
     // Start is called before the first frame update
     public void Awake()
     {
-        sp = new Spawner();
-        sp.SetSP(GetComponent<Transform>().Find("-Spawner"));
+        sp = new Spawner(GetComponent<Transform>().Find("-Spawner"));
         allEnemys = new List<EnemyStats>();
     }
     void Start()
@@ -198,4 +86,11 @@ public class EnemyManager : MonoBehaviour
             allEnemys[x].Spawn(enemyPrefab,sp);
         }
     }
+
+    bool ReadyToSpawn()
+    {
+        return true;
+    }
+
+    
 }
