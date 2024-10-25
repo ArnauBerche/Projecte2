@@ -19,6 +19,7 @@ public class EnemyPathfinding : MonoBehaviour
 
     void Start()
     {
+        /*
         if (chosen == 0)
         {
             pathList = path2;
@@ -27,10 +28,12 @@ public class EnemyPathfinding : MonoBehaviour
         {
             pathList = path1;
         }
- 
+        */
+        pathList = path1;
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        
         currentTarget = pathList[currentTargetNum];
     }
 

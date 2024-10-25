@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public float health;
     public float dmg;
     public int economyGiven;
-
+    SpriteRenderer sprite;
     public void SetEnemyData(EnemyStats enemy)
     {
         this.enemyName = enemy.enemyName;
@@ -17,5 +17,12 @@ public class Enemy : MonoBehaviour
         this.health = enemy.health;
         this.dmg = enemy.dmg;
         this.economyGiven = enemy.economyGiven;
+        this.sprite.color = enemy.color;
+    }
+
+    private void Awake()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.color = Color.red;
     }
 }
